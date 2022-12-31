@@ -51,9 +51,11 @@ which is not suitable for image processing in my model. So, I loaded images, res
 them to 256x256 shape, and converted them into array form. I exported this translated
 image array as a compressed numpy array and saved the file. So, I don’t have to do data
 pre-processing every time I do model training.
+<br></br>
 
 # Model Architecture
 ![watermark examples](Assets/my-model.png)
+
 
 ## U-Net Generator
 
@@ -69,6 +71,7 @@ The Generator structure is divided into two parts: Encoder and Decoder. In downs
 
 * Decoder (Upsampling): The decoder network has seven transposed convolutional blocks. These blocks contain convolutional transpose layers followed by batch normalization layers and a ReLU activation function. It has optional dropout layers. The construction of the decoder block is as follows: CD512-CD512-CD512- C512-C256-C128-C64. The skip connection is made from the encoder model to the decoder model. In upsampling, the size (width and height) of the image is doubled, and the features are reduced by half.
 
+
 ## Patch-Based Discriminator
 
 Unlike simple GAN discriminator, which gives output in scaler probability of input image
@@ -81,6 +84,7 @@ of the last layer. The Adam optimizer function has been used here with a small l
 rate and beta 0.5. For each model update, the discriminator loss is weighted by half.
 
 ![disc](Assets/PatchGAN.png) 
+
 
 ## Objective Function
 
@@ -100,7 +104,9 @@ Discriminator D which is trained to maximize the loss.
 - L1 Loss
 
   ![l1](Assets/l1-loss.png)
-  
+ 
+ 
+<br></br>
 # TRAINING
  For the training, I used mini-batch SGD (batch size is 1) and apply the Adam
 solver, with an initial learning rate of 0.0002 and momentum parameter β1 = 0.5.
@@ -112,6 +118,7 @@ time. This is different from the standard technique in that we use dropout durin
 and I apply batch normalization using test batch statistics rather than aggregate training
 batch statistics. This method of batch normalizing, known as "instance normalization",
 has been shown to be efficient for image generation tasks when the batch size is set to 1.
+
 
 ## Evaluation metrics
 For the quantitative GAN generator evaluation, I used image quality measures (PSNR
@@ -127,10 +134,14 @@ to the target image.
 
   ![dssim](Assets/dssim.png)
 
+
+<br></br>
+
 # RESULTS
 The objective function has two components: the adversarial loss term and the L1
 loss term. I conducted the training for each loss term and combined term to analyze the
 effect of the loss terms on the generator output.
+
 
 ## Training Analysis
 
@@ -154,11 +165,13 @@ cGAN  | 61.90 | 0.06115
 L1  | 61.67 | 0.07515
 L1 + cGAN | 66.43 | 0.01583
 
+
 ## Visualization
 
 ![psnr](Assets/result_losses.png)
 <div align="center">watermark quality for test samples for different losses
 </div>
+
 
 ## Effect of Epochs number:
 
@@ -177,7 +190,10 @@ properly trained.
 <div align="center">Image output after number of epochs
 </div>
 
-#CONCLUSION
+
+<br></br>
+
+# CONCLUSION
 This project presented the framework for visible watermark removal by combining the L1
 loss function with adversarial loss for training a conditional generative adversarial network. The proposed model is able to remove watermarks without marking the region of
 the watermark or removing a totally random watermark with a convincing solution. The
