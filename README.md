@@ -128,6 +128,10 @@ to the target image.
   ![dssim](Assets/dssim.png)
 
 # RESULTS
+The objective function has two components: the adversarial loss term and the L1
+loss term. I conducted the training for each loss term and combined term to analyze the
+effect of the loss terms on the generator output.
+
 ## Training Analysis
 
 Loss  | PSNR | DSSIM
@@ -138,9 +142,46 @@ L1 + cGAN | 67.44 | 0.00781
 
 
 ## Testing Analysis
+From the testing dataset,
+which I have 107 images in both watermarked and non-watermarked folders, I took a
+random 50-image sample to test on each trained model. After testing, I calculated PSNR
+and DSSIM by comparing them with the target image for all 50 samples. This is done
+for all three models.
 
 Loss  | PSNR | DSSIM
 ------------- | ------------- | -------------
 cGAN  | 61.90 | 0.06115
 L1  | 61.67 | 0.07515
 L1 + cGAN | 66.43 | 0.01583
+
+## Visualization
+
+![psnr](Assets/result_losses.png)
+<div align="center">watermark quality for test samples for different losses
+</div>
+
+## Effect of Epochs number:
+
+![psnr](Assets/loss_curve_1.png)
+
+In the plot, we can see that The discriminator loss is fluctuating much in the stating
+epoch, and after some epochs, it is trained and gets stable at a some value. While the
+generator gets better and better from the beginning to the end of the epoch, after the
+discriminator stabilized, the change in the generator is very low and negligible. After 60
+epochs, both the generator and discriminator stabilize, and we can say that the GAN
+has converged. The best way to validate this is to plot the generated image from the
+test dataset, which also serves as a good way to determine whether the model has been
+properly trained.
+
+![psnr](Assets/progressive.png)
+<div align="center">Image output after number of epochs
+</div>
+
+#CONCLUSION
+This project presented the framework for visible watermark removal by combining the L1
+loss function with adversarial loss for training a conditional generative adversarial network. The proposed model is able to remove watermarks without marking the region of
+the watermark or removing a totally random watermark with a convincing solution. The
+findings suggest that the proposed network approach is promising for removing unknown
+watermarks. Various types of watermarks are randomly distributed and used to train a
+watermark removal model in order to improve the capacity and robustness of the network. Experimental results show that our proposed framework is effective for unknown
+watermark removal.
