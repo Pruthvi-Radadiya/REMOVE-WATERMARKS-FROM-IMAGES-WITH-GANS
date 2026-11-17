@@ -3,7 +3,7 @@
 
 Image and video copyright have emerged as significant issues with the rapid development
 of the Internet. In order to preserve copyright, watermarks are frequently used in images.
-Generally, To protect the copyright and themselves from all kinds of risk, such as reposting
+Generally, to protect the copyright and themselves from all kinds of risk, such as reposting
 without credit, creators use a visible or invisible watermark on the image. This suggests
 that the strength of the watermark is very important. However, the watermarks are
 frequently damaged and destroyed. The impact of watermark removal techniques directly
@@ -30,9 +30,9 @@ resilient to removal-related attacks.
 For the training and testing. I used a dataset openly available on Kaggle. The dataset is divided
 into training and validation with an 80/20 ratio. Each folder contains watermarked and
 non-watermarked images in the ratio of 50:50. Each folder in the training data contains
-nearly 12000 images, for both watermarked and nonwatermarked. And the validation
+nearly 12000 images, for both watermarked and non-watermarked. And the validation
 set consists of nearly 3300 images for each. The watermark is randomly generated for
-each image. Furthermore, the transparancy, size, and location are randomly set as shown in Fig. Some watermarks
+each image. Furthermore, the transparency, size, and location are randomly set as shown in Fig. Some watermarks
 are designed in such a way that they are difficult to detect in an image.
 
 ![watermark examples](Assets/watermarked-image.png)
@@ -74,8 +74,8 @@ The Generator structure is divided into two parts: Encoder and Decoder. In downs
 
 ## Patch-Based Discriminator
 
-Unlike simple GAN discriminator, which gives output in scaler probability of input image
-as real or fake, I used a patch-based discriminator in my work. Adding a patchbased 
+Unlike simple GAN discriminator, which gives output in scalar probability of input image
+as real or fake, I used a patch-based discriminator in my work. Adding a patch-based 
 discriminator can increase the effectiveness of our cGANs-based network’s ability
 to remove visible watermarks. The discriminator’s architecture is as follows: C64-C128-
 C256-C512. Each block contains a convolution layer, a batch normalization layer (except
@@ -177,8 +177,8 @@ L1 + cGAN | 66.43 | 0.01583
 
 ![psnr](Assets/loss_curve_1.png)
 
-In the plot, we can see that The discriminator loss is fluctuating much in the stating
-epoch, and after some epochs, it is trained and gets stable at a some value. While the
+In the plot, we can see that The discriminator loss is fluctuating much in the starting
+epoch, and after some epochs, it is trained and gets stable at some value. While the
 generator gets better and better from the beginning to the end of the epoch, after the
 discriminator stabilized, the change in the generator is very low and negligible. After 60
 epochs, both the generator and discriminator stabilize, and we can say that the GAN
